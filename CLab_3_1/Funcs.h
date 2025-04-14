@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <stdio.h>
 #include <Windows.h>
+#include <stdbool.h>
 #include <string.h>
 #define MAXSIZE 20
 

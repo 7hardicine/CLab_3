@@ -4,7 +4,7 @@
 #include "Menu.h"
 #include "Funcs.h"
 #define MAXSIZE 20
-#define MENU_ITEM_COUNT 3
+#define MENU_ITEM_COUNT 4
 
 /*
 Самолёт
@@ -45,6 +45,7 @@ int main()
 	{
 		"Ввод данных", Input,
 		"Вывод данных", Output,
+		"Иди нахуй", Output,
 		"Выход", exit
 	};
 

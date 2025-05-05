@@ -4,7 +4,7 @@
 #include "Menu.h"
 #include "Funcs.h"
 #define MAXSIZE 20
-#define MENU_ITEM_COUNT 4
+#define MENU_ITEM_COUNT 5
 
 /*
 Самолёт
@@ -34,6 +34,30 @@ void Output()
 	}
 }
 
+void OutputMaxWeightCapacity()
+{
+	if (plane_count > 0)
+	{
+		MaxWeightCapacityAndMark(plane, plane_count);
+	}
+	else
+	{
+		puts("Информация отсутствует!");
+	}
+}
+
+void OutputBeforeCurrentYear()
+{
+	if (plane_count > 0)
+	{
+		BeforeCurrentYear(plane, plane_count);
+	}
+	else
+	{
+		puts("Информация отсутствует!");
+	}
+}
+
 int main()
 {
 	SetConsoleCP(1251);
@@ -45,7 +69,8 @@ int main()
 	{
 		"Ввод данных", Input,
 		"Вывод данных", Output,
-		"Иди нахуй", Output,
+		"Самолёты с заданной маркой и максимальной грузоподъёмностью", OutputMaxWeightCapacity,
+		"Самолёты, произведённые до указанного года", OutputBeforeCurrentYear,
 		"Выход", exit
 	};
 

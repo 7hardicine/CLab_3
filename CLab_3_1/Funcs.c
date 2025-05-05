@@ -49,6 +49,7 @@ void InputPlane(struct Planes** plane, int* struct_size)
 		(*plane + old_struct_size + i)->lift_capacity = InputDouble("Введите грузоподъёмность самолёта:");
 		(*plane + old_struct_size + i)->year = InputInt("Введите год выпуска самолёта:");
 	}
+	*struct_size += old_struct_size;
 }
 void OutputPlane(struct Planes* plane, int struct_size)
 {
@@ -61,4 +62,77 @@ void OutputPlane(struct Planes* plane, int struct_size)
 			(plane  + i)->lift_capacity, (plane + i)->mark, (plane + i)->year);
 	}
 	puts("|===================================================================|");
+}
+double FindMaxWeightCapacity(struct Planes* plane, int struct_size)
+{
+	double MaxWeightCapacity = plane->lift_capacity;
+	for (int i = 1; i < struct_size; i++)
+	{
+		if (MaxWeightCapacity < (plane + i)->lift_capacity)
+		{
+			MaxWeightCapacity = (plane + i)->lift_capacity;
+		}
+	}
+	return MaxWeightCapacity;
+}
+void MaxWeightCapacityAndMark(struct Planes* plane, int struct_size)
+{
+	char current_mark[MAXSIZE];
+	printf_s("Введите марку самолёта: ");
+	scanf_s("%s", current_mark, (unsigned)sizeof(current_mark));
+	double MaxWeightCapacity = FindMaxWeightCapacity(plane, struct_size);
+	struct Planes* buffer;
+	int buffer_size = 0;
+	buffer = (struct Planes*)malloc(MAXSIZE * sizeof(struct Planes));
+	if (buffer == NULL)
+	{
+		puts("Ошибка памяти!");
+		return 1;
+	}
+	for (int i = 0; i < struct_size; i++)
+	{
+		if (MaxWeightCapacity == (plane + i)->lift_capacity && strcmp((plane + i)->mark, current_mark) == 0)
+		{
+			buffer[buffer_size] = plane[i];
+			buffer_size++;
+		}
+	}
+	if (buffer_size == 0)
+	{
+		puts("Подходящих самолётов нет !");
+	}
+	else
+	{
+		OutputPlane(buffer, buffer_size);
+	}
+	free(buffer);
+}
+void BeforeCurrentYear(struct Planes* plane, int struct_size)
+{
+	struct Planes* buffer;
+	int buffer_size = 0;
+	buffer = (struct Planes*)malloc(MAXSIZE * sizeof(struct Planes));
+	if (buffer == NULL)
+	{
+		puts("Ошибка памяти!");
+		return 1;
+	}
+	int current_year = InputInt("Введите год:");
+	for (int i = 0; i < struct_size; i++)
+	{
+		if ((plane + i)->year < current_year)
+		{
+			buffer[buffer_size] = plane[i];
+			buffer_size++;
+		}
+	}
+	if (buffer_size == 0)
+	{
+		puts("Подходящих самолётов нет !");
+	}
+	else
+	{
+		OutputPlane(buffer, buffer_size);
+	}
+	free(buffer);
 }

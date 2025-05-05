@@ -17,3 +17,6 @@ struct Planes
 };
 void InputPlane(struct Planes** plane, int* struct_size);
 void OutputPlane(struct Planes* plane, int strutct_size);
+double FindMaxWeightCapacity(struct Planes* plane, int struct_size);
+void MaxWeightCapacityAndMark(struct Planes* plane, int struct_size);
+void BeforeCurrentYear(struct Planes* plane, int struct_size);
